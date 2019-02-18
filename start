@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if which node > /dev/null; then
+    echo "Node.js is installed, skipping..."
+else
+    echo "Please install Node.js"
+fi
+
+echo "Installing dependencies"
+npm install
+
+browserify js/main.js -o js/bundle.js
+
+static &
+open http://127.0.0.1:8080
