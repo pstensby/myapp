@@ -8,8 +8,4 @@ fi
 
 echo "Installing dependencies"
 npm install
-
-browserify js/main.js -o js/bundle.js
-
-static &
-open http://127.0.0.1:8080
+gulp start
