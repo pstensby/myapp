@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     del = require('del'),
     browserify  = require('browserify'),
     source = require('vinyl-source-stream'),
-    open = require('gulp-open');
+    open = require('gulp-open'),
+    jasmineBrowser = require('gulp-jasmine-browser');
 
 gulp.task('serve', serve('.'));
 
@@ -34,6 +35,12 @@ gulp.task('bundle', function () {
 
 gulp.task('clean', function() {
     return del(['js/bundles/*']);
+});
+
+gulp.task('test', function() {
+    return gulp.src(['js/**/*.js', 'tests/**/*.js', '!js/dependencies/main.js', '!js/app.js'])
+        .pipe(jasmineBrowser.specRunner())
+        .pipe(jasmineBrowser.server({port: 8888}));
 });
 
 gulp.task('build',  gulp.series('clean', 'browserify', 'bundle'));
